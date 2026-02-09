@@ -2,7 +2,7 @@
 
 > Final Project – Digital Design (Bu-Ali Sina University, Computer Engineering Department – BASU)
 
-![Craps Dice Game](pics/unnamed.jpg)
+![Craps Dice Game](pic/unnamed.jpg)
 
 ---
 
