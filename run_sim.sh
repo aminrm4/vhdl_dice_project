@@ -8,8 +8,9 @@
 # ==============================================================================
 
 # ===== CONFIGURATION - Change this to run different testbenches =====
-TB_NAME="tb_comparator"              # Change this to your testbench name (without .vhd)
-STOP_TIME="50ns"                # Simulation stop time
+TB_NAME="tb_seven_seg2"              # Testbench filename (without .vhd)
+TB_ENTITY="tb_two_seven_seg"         # Testbench entity name (must match entity declaration)
+STOP_TIME="150ns"                # Simulation stop time
 MODULES_DIR="moduels"           # Directory containing module files
 TESTBENCHES_DIR="testbenches"   # Directory containing testbench files
 WORK_DIR="work"                 # Directory for all generated files
@@ -72,7 +73,7 @@ cd "$WORK_DIR" || exit 1
 
 # Step 1: Compile all module files
 print_info "Step 1: Compiling module files..."
-MODULE_FILES=$(find ../$MODULES_DIR -name "*.vhd" 2>/dev/null)
+MODULE_FILES=$(find ../$MODULES_DIR \( -name "*.vhd" -o -name "*.vhdl" \) 2>/dev/null)
 if [ -z "$MODULE_FILES" ]; then
     print_error "No VHDL module files found in $MODULES_DIR/"
     exit 1
@@ -111,9 +112,9 @@ echo ""
 
 # Step 3: Elaborate testbench
 print_info "Step 3: Elaborating testbench..."
-ghdl -e "$TB_NAME" 2>&1
+ghdl -e "$TB_ENTITY" 2>&1
 if [ $? -ne 0 ]; then
-    print_error "Failed to elaborate testbench: $TB_NAME"
+    print_error "Failed to elaborate testbench: $TB_ENTITY"
     exit 1
 fi
 
@@ -126,7 +127,7 @@ VCD_FILE="${TB_NAME}.vcd"
 print_info "  Stop time: $STOP_TIME"
 print_info "  Output VCD: $VCD_FILE"
 
-ghdl -r "$TB_NAME" --vcd="$VCD_FILE" --stop-time="$STOP_TIME" 2>&1
+ghdl -r "$TB_ENTITY" --vcd="$VCD_FILE" --stop-time="$STOP_TIME" 2>&1
 if [ $? -ne 0 ]; then
     print_error "Simulation failed."
     exit 1
@@ -155,7 +156,7 @@ print_info "=========================================="
 print_info "Generated files:"
 print_info "  - $VCD_FILE (waveform)"
 print_info "  - *.o, *.cf (compiled files)"
-print_info "  - $TB_NAME (executable)"
+print_info "  - $TB_ENTITY (executable)"
 print_info "=========================================="
 
 # Return to original directory
