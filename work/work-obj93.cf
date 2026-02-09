@@ -1,0 +1,7 @@
+v 4
+file . "../testbenches/tb_adder.vhd" "c8d7010c9d1210fedd86edcbb6e178802dc3c170" "20260209161751.737":
+  entity tb_adder at 1( 0) + 0 on 17;
+  architecture sim of tb_adder at 8( 104) + 0 on 18;
+file . "../moduels/adder.vhd" "aaa4a7387290bbaf547c782b477410fa5a44dec5" "20260209161751.732":
+  entity adder at 1( 0) + 0 on 15;
+  architecture behavioral of adder at 9( 167) + 0 on 16;
