@@ -1,7 +1,13 @@
 v 4
+file . "../testbenches/tb_comparator.vhd" "54429275823b6d97a7b6d47a2ee28b4ff356b26c" "20260209173248.147":
+  entity tb_comparator at 1( 0) + 0 on 23;
+  architecture sim of tb_comparator at 8( 114) + 0 on 24;
+file . "../moduels/comparator.vhd" "b5ed4fe5b84a678d7e6ae05ee535d6fbde242325" "20260209173248.137":
+  entity comparator at 1( 0) + 0 on 19;
+  architecture behavioral of comparator at 9( 167) + 0 on 20;
+file . "../moduels/adder.vhd" "aaa4a7387290bbaf547c782b477410fa5a44dec5" "20260209173248.141":
+  entity adder at 1( 0) + 0 on 21;
+  architecture behavioral of adder at 9( 167) + 0 on 22;
 file . "../testbenches/tb_adder.vhd" "c8d7010c9d1210fedd86edcbb6e178802dc3c170" "20260209161751.737":
   entity tb_adder at 1( 0) + 0 on 17;
   architecture sim of tb_adder at 8( 104) + 0 on 18;
-file . "../moduels/adder.vhd" "aaa4a7387290bbaf547c782b477410fa5a44dec5" "20260209161751.732":
-  entity adder at 1( 0) + 0 on 15;
-  architecture behavioral of adder at 9( 167) + 0 on 16;

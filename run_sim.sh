@@ -8,7 +8,7 @@
 # ==============================================================================
 
 # ===== CONFIGURATION - Change this to run different testbenches =====
-TB_NAME="tb_adder"              # Change this to your testbench name (without .vhd)
+TB_NAME="tb_comparator"              # Change this to your testbench name (without .vhd)
 STOP_TIME="50ns"                # Simulation stop time
 MODULES_DIR="moduels"           # Directory containing module files
 TESTBENCHES_DIR="testbenches"   # Directory containing testbench files
