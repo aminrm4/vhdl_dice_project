@@ -8,9 +8,9 @@
 # ==============================================================================
 
 # ===== CONFIGURATION - Change this to run different testbenches =====
-TB_NAME="tb_seven_seg2"              # Testbench filename (without .vhd)
-TB_ENTITY="tb_two_seven_seg"         # Testbench entity name (must match entity declaration)
-STOP_TIME="150ns"                # Simulation stop time
+TB_NAME="tb_craps_system"              # Testbench filename (without .vhd)
+TB_ENTITY="tb_craps_system"         # Testbench entity name (must match entity declaration)
+STOP_TIME="800ns"                # Simulation stop time
 MODULES_DIR="moduels"           # Directory containing module files
 TESTBENCHES_DIR="testbenches"   # Directory containing testbench files
 WORK_DIR="work"                 # Directory for all generated files
@@ -71,21 +71,20 @@ echo ""
 # Change to work directory for compilation
 cd "$WORK_DIR" || exit 1
 
-# Step 1: Compile all module files
+# Step 1: Compile all module files (dependency order: leaf modules first, craps_system last)
 print_info "Step 1: Compiling module files..."
-MODULE_FILES=$(find ../$MODULES_DIR \( -name "*.vhd" -o -name "*.vhdl" \) 2>/dev/null)
-if [ -z "$MODULE_FILES" ]; then
-    print_error "No VHDL module files found in $MODULES_DIR/"
-    exit 1
-fi
-
+MODULES_BASE="../$MODULES_DIR"
 COMPILE_ERROR=false
-for MODULE_FILE in $MODULE_FILES; do
-    print_info "  Compiling: $MODULE_FILE"
-    ghdl -a "$MODULE_FILE" 2>&1
-    if [ $? -ne 0 ]; then
-        print_error "Failed to compile $MODULE_FILE"
-        COMPILE_ERROR=true
+for MODULE_FILE in "$MODULES_BASE/adder.vhd" "$MODULES_BASE/comparator.vhd" "$MODULES_BASE/dice_counter.vhd" \
+    "$MODULES_BASE/register.vhd" "$MODULES_BASE/test_logic.vhd" "$MODULES_BASE/seven_seg2.vhd" \
+    "$MODULES_BASE/controller_fsm.vhd" "$MODULES_BASE/craps_system.vhd"; do
+    if [ -f "$MODULE_FILE" ]; then
+        print_info "  Compiling: $MODULE_FILE"
+        ghdl -a "$MODULE_FILE" 2>&1
+        if [ $? -ne 0 ]; then
+            print_error "Failed to compile $MODULE_FILE"
+            COMPILE_ERROR=true
+        fi
     fi
 done
 
